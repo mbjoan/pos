@@ -1,7 +1,7 @@
 .button_transact
 { 
   -webkit-appearance: button;
-  /*-webkit-focus-ring-color;*/
+  -webkit-focus-ring-color;
   margin-top: 0;
   width:inherit;
   height: 50px;
@@ -83,7 +83,7 @@ legend
 	color:#3C4F10;
 	background-color: #9CF2B2;
 	-webkit-appearance: button;
-	 /*-webkit-focus-ring-color;*/
+	-webkit-focus-ring-color;
 }
 .submit
 {
@@ -145,7 +145,7 @@ button
 .button
 {	
 	-webkit-appearance: button;
-	/*-webkit-focus-ring-color;*/
+	-webkit-focus-ring-color;
 	margin-top: 0;
 	width:200px;
 	height: 50px;
@@ -198,7 +198,7 @@ th
 	padding-top: 10px;
 	height: 30px;
 	 -webkit-appearance: button;
-	 /*-webkit-focus-ring-color;*/
+	 -webkit-focus-ring-color;
 }
 #item_search
 {
@@ -299,7 +299,7 @@ html {
 
 a:focus {
   outline: thin dotted #333;
- /* outline: 5px auto - -webkit-focus-ring-color;*/
+  outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 
@@ -1437,7 +1437,7 @@ input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
   outline: thin dotted #333;
-/*  outline: 5px auto - -webkit-focus-ring-color;*/
+  outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 
@@ -3482,7 +3482,7 @@ button.close {
 
 .btn:focus {
   outline: thin dotted #333;
-   /*outline: 5px auto --webkit-focus-ring-color;*/
+  outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 
