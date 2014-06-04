@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require_tree
 //= require typeahead.bundle
+//= require rails_autocomplete
 

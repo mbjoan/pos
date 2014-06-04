@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   #before_filter :confirm_admin, :except=>[:index,:autocomplete]
 
 	def index
+    @others = Items.all
     @index = Items.new
     #@item=CartItem.where(cart_id: initialize_cart).to_a
     @item=CartItem.all
@@ -35,6 +36,13 @@ class ItemsController < ApplicationController
   end
 
 
+def autocomplete
+  @items = Items.autocomplete(:name, params[:q])
+  respond_to do |format|
+    format.json { render json: @items }
+  end
+end
+=begin
   def autocomplete
     @items = Items.search(params[:query], page: params[:page],autocomplete: true, limit: 10).map(&:name)
 
@@ -46,6 +54,7 @@ class ItemsController < ApplicationController
      flash[:notice]="hahaha"
   
   end
+=end
 
   def show
     @items=Items.all

@@ -4,6 +4,9 @@ gem 'acts_as_shopping_cart', '~> 0.2.1'
 
 gem 'pg'
 
+gem 'rails_autocomplete'
+gem 'rails_12factor'
+
 #for pagination
 gem 'kaminari'
 

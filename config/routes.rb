@@ -13,7 +13,7 @@ Myapp::Application.routes.draw do
   post "items/cart_item"
   post "items/new_sale"
 
-  get '/itemsearch/cheese' => 'items#autocomplete'
+  get "items/autocomplete"
 
   #get 'users/autocomplete_brand_name'
   #get 'items/autocomplete_brand_name', :on => :collection
