@@ -1,0 +1,69 @@
+
+<% if flash[:notice1]%>
+<div class="alert alert-success">
+	<img src="check.png" width="30" height="20"/><%= flash[:notice1]%>
+</div>
+
+<% elsif flash[:notice2]%>
+<div class="alert alert-danger">
+	<img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
+</div>
+<%end%>
+
+
+<legend> Add Items To Inventory</legend>
+
+<div id="form">
+<fieldset>
+
+<div class="span6 well">
+
+<%= form_for(:items, :url => {:controller => 'items', :action => 'create'}, :html=>{ :class=>"form-horizontal"}) do |f| %>
+	<% if @items.errors.any? %>
+		<div class="alert alert-danger">
+			<% for message_error in @items.errors.full_messages %>
+			<%= message_error %>
+	<% end %>
+
+<% end %>
+
+<div class="control-group">
+	<%= f.label :name, class: "control-label" %>
+
+	<div class="controls">
+		<%= f.text_field :name%>
+	</div>
+</div>
+
+
+<div class="control-group">
+	<%= f.label :price, class: "control-label" %>
+	<div class="controls">
+		<%= f.text_field :price%>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :quantity, class: "control-label" %>
+	<div class="controls">
+		<%= f.text_field :quantity%>
+	</div>
+</div>
+
+<div class="control-group" style="width:220px; margin-left:180px;padding-left:0px; margin-top:2px;">
+	<div class="form-actions" style="padding-left:0px; margin-top:0px;">
+		<%= f.submit "Add Item" %>
+</div>
+</div>
+
+<% end %>
+</div>
+
+</fieldset>
+</div>
+
+<div id="back">
+<%= link_to "Back", :controller=>"admin", :action=>"index" %>
+</div>
+
+</div>

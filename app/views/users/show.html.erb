@@ -1,0 +1,45 @@
+<% if flash[:notice1]%>
+<div class="alert alert-success">
+  <img src="check.png" width="30" height="20"/><%= flash[:notice1]%>
+</div>
+
+<%end%>
+
+
+
+<legend>System Users</legend>
+
+<div id="form">
+
+<table>
+  <tr style="background-color:#B1FFD4; height:15px;">
+    <th> Username</th>
+    <th> Role</th>
+    <th> Status</th>
+    <th></th>
+
+  </tr>
+
+  <% @users.each do |user| %>
+
+    <tr style="height:8px;"></tr>
+
+    <tr style="background-color:#CDF5DF;height:10px; color:#14311F;">
+      <td><%= user.username %></td>
+      <td><%= user.role %></td>
+
+      <td>
+      <%if session[:user_name]==user.username%>
+       <blink><%= "active" %></blink>
+      <%end%>
+    </td>
+
+      <td><%= link_to "Delete", user_path(user), method: :delete, data: {confirm: "Are you sure?" } %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<div id="back">
+<%= link_to "Back", :controller=>"admin", :action=>"index" %>
+</div>

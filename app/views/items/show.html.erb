@@ -1,0 +1,29 @@
+<legend>Inventory</legend>
+
+<div id="form">
+
+<table>
+  <tr style="background-color:#B1FFD4; height:15px;">
+    <th> Name</th>
+    <th> Price</th>
+    <th> Quantity</th>
+    
+
+  </tr>
+
+  <% @items.each do |item| %>
+
+    <tr style="height:8px;"></tr>
+
+    <tr style="background-color:#D5F0D0;height:10px;color:#14311F;">
+      <td><%= item.name %></td>
+      <td><%= item.price %></td>
+      <td><%= item.quantity%></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<div id="back">
+<%= link_to "Back", :controller=>"admin", :action=>"index" %>
+</div>

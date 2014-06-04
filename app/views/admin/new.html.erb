@@ -1,0 +1,77 @@
+
+<% if flash[:notice1]%>
+<div class="alert alert-success">
+	<img src="check.png" width="30" height="20"/><%= flash[:notice1]%>
+</div>
+
+<% elsif flash[:notice2]%>
+<div class="alert alert-danger">
+	<img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
+</div>
+<%end%>
+
+
+<legend> Add System User </legend>
+
+<div id="form">
+<fieldset>
+
+
+<div class="span6 well">
+
+<%= form_for(:user, :url => {:controller => 'admin', :action => 'create'}, :html=>{ :class=>"form-horizontal"}) do |f| %>
+	<% if @user.errors.any? %>
+		<div class="alert alert-danger">
+			<% for message_error in @user.errors.full_messages %>
+			<%= message_error %>
+	<% end %>
+
+<% end %>
+
+<div class="control-group">
+	<%= f.label :username, class: "control-label" %>
+
+	<div class="controls">
+		<%= f.text_field :username%>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :role, class: "control-label" %>
+	<div class="controls">
+		<%= f.select(:role, [["Cashier","Cashier"],["Admin","Admin"]]) %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :password, class: "control-label" %>
+	<div class="controls">
+		<%= f.password_field :password%>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :Password_Confirmation, class: "control-label" %>
+	<div class="controls">
+		<%= f.password_field :password_confirmation%>
+	</div>
+</div>
+
+<div class="control-group" style="width:220px; margin-left:180px;padding-left:0px; margin-top:2px;">
+	<div class="form-actions" style="padding-left:0px; margin-top:0px;">
+		<%= f.submit "Create User" %>
+</div>
+</div>
+
+<% end %>
+</div>
+
+</fieldset>
+
+
+</div>
+
+
+<div id="back">
+<%= link_to "Back", :controller=>"admin", :action=>"index" %>
+</div>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myapp</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <script type="text/javascript" src="js.js"></script>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "typeahead.bundle","data-turbolinks-track" => true %>
+
+  <%= javascript_include_tag "autocomplete-rails.js"%>
+
+  <%= stylesheet_link_tag 'jquery-ui-1.10.4.custom.css' %>
+
+  <%= yield :head %>
+  
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+
+  <div id="banner">
+
+
+  </div>
+    
+
+ <% if session[:user] %>
+  <div id="logout">
+   
+      <%= session[:user_name] %> | <%= session[:role] %>
+      <%= link_to "Log out", log_out_path, method: :get, data: { keybinding: 'ctrl+l' } %>
+      <%= link_to "Help", admin_help_path, data: { keybinding: 'ctrl+m' }, method: :post%>
+    
+  </div>
+
+    <% end %>
+<div id="flash">
+
+
+</div>
+  <div id="content">
+   <%= yield %>
+  </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+ <div id="footer"></div>
+</nav>
+
+</body>
+</html>
