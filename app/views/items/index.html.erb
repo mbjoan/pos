@@ -27,10 +27,7 @@ $(function() {
 
 <div id="form" style="padding-left:100px;">
 
-	<%= form_for @items, :url => { :action => "index" }  do |f|  %>
-    <%= f.autocomplete_field :query, params[:query]%>
-    <%= f.submit "Transact", class: "btn btn-primary" %>
- <%end%>
+	
 
 	<%= form_tag items_path, :class=>"form-horizontal", method: :get do %>
   	<div class='input-group.input-group-lg' style="margin-bottom:10px;"> 
