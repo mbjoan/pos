@@ -13,9 +13,9 @@ class ItemsController < ApplicationController
 
 
     if params[:query].present?
-       #@items = Items.search(params[:query])
+       @items = Items.search(params[:query])
        #@items = render json: Items.search(params[:query], autocomplete: true, limit: 10).map(&:name)
-       @items = Items.search(params[:query], page: params[:page])
+       #@items = Items.search(params[:query], page: params[:page])
        #render xml: @items
        $quantity = params[:quantity]
 
