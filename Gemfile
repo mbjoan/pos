@@ -5,6 +5,7 @@ gem 'acts_as_shopping_cart', '~> 0.2.1'
 gem 'pg'
 
 gem 'rails_autocomplete'
+gem 'rails4-autocomplete', '~> 1.1.0'
 gem 'rails_12factor'
 
 #for pagination

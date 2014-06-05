@@ -12,8 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ui.autocomplete.min
 //= require mousetrap
 //= require turbolinks
 //= require_tree
-//= require typeahead.bundle
+//= require typeahead
+
+$("#query").typeahead({
+    name: "item",
+    remote: "/items/autocomplete?query=%QUERY"
+  });
+
 

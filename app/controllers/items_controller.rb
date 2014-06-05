@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   #before_filter :login_required
   #before_filter :confirm_admin, :except=>[:index,:autocomplete]
 
+
 	def index
     @others = Items.all
     @index = Items.new
@@ -13,11 +14,12 @@ class ItemsController < ApplicationController
 
 
     if params[:query].present?
-       @items = Items.search(params[:query])
+       @items = Items.search(params[:query],fields: [{name: :text_start}])
        #@items = render json: Items.search(params[:query], autocomplete: true, limit: 10).map(&:name)
        #@items = Items.search(params[:query], page: params[:page])
        #render xml: @items
        $quantity = params[:quantity]
+
 
   return @items
     else
@@ -36,13 +38,18 @@ class ItemsController < ApplicationController
   end
 
 
+  def autocomplete
+    render json: Items.search(params[:query], fields: [{name: :text_start}], limit: 10).map(&:name)
+  end
+
+=begin
 def autocomplete
   @items = Items.autocomplete(:name, params[:q])
   respond_to do |format|
     format.json { render json: @items }
   end
 end
-=begin
+
   def autocomplete
     @items = Items.search(params[:query], page: params[:page],autocomplete: true, limit: 10).map(&:name)
 

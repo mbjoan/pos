@@ -41,6 +41,10 @@ class ApplicationController < ActionController::Base
   end
  	 
   #logger
+
+  def at_start
+    @itemlist = Items.find(:all,:select => 'name')
+  end
   
 
 

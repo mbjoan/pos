@@ -97,6 +97,8 @@ GEM
       sprockets-rails (~> 2.0.0)
     rails3-jquery-autocomplete (1.0.14)
       rails (>= 3.0)
+    rails4-autocomplete (1.1.0)
+      rails (>= 3.0)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -195,6 +197,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.3)
   rails3-jquery-autocomplete
+  rails4-autocomplete (~> 1.1.0)
   rails_12factor
   rails_autocomplete
   rspec-rails (~> 3.0.0.beta)

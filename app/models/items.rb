@@ -3,7 +3,8 @@ class Items < ActiveRecord::Base
 	#attr_accessor :name, :price, :quantity
 
 	
-	searchkick autocomplete: ['name']
+	#searchkick autocomplete: ['name']
+	searchkick text_start: [:name]
 	#searchkick
 
 	validates :name, :presence => true, :uniqueness => true
