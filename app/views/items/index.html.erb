@@ -1,6 +1,152 @@
+
+<style type="text/css">
+
+.output
+{
+        font-family:Arial;
+        font-size: 10pt;
+        color:black;
+        padding-left: 3px;
+        padding-top: 3px;
+        border: 1px solid #000000;
+        width: 220px;
+        background: #fff;
+}
+.shadow
+{
+        width:102px;
+        position:relative;
+        top: 2px;
+        left: 2px;
+        background: #A2F5C2;
+}
+.shadow div{
+        position:relative;
+        top: -2px;
+        left: -2px;
+}
+
+</style>
+
+<body onLoad="init();">
+  <% if flash[:notice]%>
+<div class="alert alert-success">
+<img src="check.png" width="30" height="20"/> <%= flash[:notice]%>
+</div>
+
+<% elsif flash[:notice2]%>
+<div class="alert alert-danger">
+  <img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
+</div>
+<%end%>
+
+
+  <legend>Purchase</legend>
+  <div id="form" style="padding-left:100px;">
+  <!-- ===========================================================================================-->
+<form name="test" id="test" action="/items/">
+  <div class='input-group.input-group-lg' style="margin-bottom:10px;"> 
+
+<input type="text" name="text" autocomplete="off" id="item_search" class="form-control">
+<input type="text" name="quantity" placeholder="quantity" id="quantity" class="form-control">
+<input type="submit" value="Search" name="commit" class="btn btn-default"/>
+<%= link_to "new sale",  items_new_sale_path, class: "btn btn-default",method: :post, id: "new_sale"%>
+
+<%if params[:text].present? %>
+      
+        <%if @items%>
+
+          <% @items.each do |item| %>
+            <%= link_to 'Add to Cart', items_cart_item_path(items_id: item.id), class: "btn btn-default", method: :post%>
+          <%end%>
+        <%end%>
+        <% end%>
+      </div>
+
+</form>
+<!-- ===========================================================================================-->
+<div class="shadow" id="shadow">
+<div class="output" id="output">
+</div>
+</div>
+</body>         
+
+	<!-- 
+	========================================================
+	-->
+	<div class="input-group-btn">
+		<table style="width:500px; float:left; padding-left:0px;">
+			
+
+			<% if @item%>
+				<tr style="background-color:#B1FFD4; height:15px;"><th>Name</th><th>Quantity</th><th>Unit Price</th> <th>Total</th></tr>
+
+				<% @item.each do |item| %>
+
+					<tr style="height:8px;"></tr>
+
+					<tr style="background-color:#CDF5DF;height:10px;">
+						<td><%= item.name%></td>
+						<td><%= item.quantity%></td>
+						<td><%= item.price %></td>
+						<td><%= item.subtotal %></td>		
+					</tr>
+
+				<%end %>
+				  
+			<%end%>
+
+
+			
+		</table>	
+	</div>
+
+	<div id="after_transact">	
+	<h3><%= $total%></h3>	
+
+		
+	</div>
+
+  <div style="float:center;padding-top:5px;">Pay with</div>
+
+	<div id="transact">	
+		<div id="button">  	
+			<button type="button" class="btn btn-default">
+
+          <div align="center">
+        <form method="post" style="margin:0px" action="https://payments.yo.co.ug/webexpress/">
+                <input type="image" name="submit" src="mm1.PNG" height="50" style="border-radius:3px;"/>
+                <input type="hidden" name="bid" value="88" />
+                <input type="hidden" name="currency" value="UGX" />
+                <input type="hidden" name="amount" value=<%= $total%> />
+                <input type="hidden" name="narrative" value="Pay for the service" />
+                <input type="hidden" name="reference" value="Payment" />
+                <input type="hidden" name="provider_reference_text" value="" />
+                <input type="hidden" name="account" value="100181085271" />
+                <input type="hidden" name="return" value="http://enigmatic-mesa-8421.herokuapp.com/items" />
+                <input type="hidden" name="prefilled_payer_email_ad
+dress" value="" />
+                <input type="hidden" name="prefilled_payer_mobile_payment_msisdn" value="" />
+                <input type="hidden" name="prefilled_payer_names" value="" />
+                <input type="hidden" name="abort_payment_url" value="" />
+        </form>  
+</div>
+   			</button>
+    	</div>
+	</div>
+
+
+
+</div>
+
+
+<div id="back">
+
+</div>
+
+
 <script type="text/javascript">
 
-		//var suggestions = new Array();
 
 <!-- Scripts by hscripts.com  -->
 <!-- Copywrite of HIOXINDIA -->
@@ -10,7 +156,7 @@
 <!-- Declare the array and store the values according to ur usage -->
 //var suggestions = new Array("bank", "back", "peter","hindu","huge", "test","bums","cat","kind","fight","argue","append","run","sad","silk","light","little","rate","orange","office","lucky","cable","monitor","narration","early","pick","put","hungry","gain","gift","java","junction","vegtable","fan","north","needle","winter","nation","carry","dance","danger","iteration","facile","yahoo","quick","quee","arrangement","vechicle","urban","xerox","zeebra","xML");
 
-var suggestions = new Array("soda","bread","sweets","sugar");
+var suggestions = new Array("soda","bread","sweets","sugar","basin","cup","fork","saviets","vaseline","towel","sanitory towel", "deodorant","bucket");
 
 
 
@@ -225,164 +371,4 @@ function keyHandler(event)
         oldins = this.firstChild.nodeValue;
      }
 </script>
-<style type="text/css">
-
-.output
-{
-        font-family:Arial;
-        font-size: 10pt;
-        color:black;
-        padding-left: 3px;
-        padding-top: 3px;
-        border: 1px solid #000000;
-        width: 100px;
-        background: #fff;
-}
-.shadow
-{
-        width:102px;
-        position:relative;
-        top: 2px;
-        left: 2px;
-        background: #555;
-}
-.shadow div{
-        position:relative;
-        top: -2px;
-        left: -2px;
-}
-
-</style>
-
-<body onLoad="init();">
-<form name="test" id="test">
-
-<input type="text" name="text" autocomplete="off">
-</form>
-<div class="shadow" id="shadow">
-<div class="output" id="output">
-</div>
-</div>
-</body>                                                                                         
-<!-- ===========================================================================================-->
-
-<% if flash[:notice]%>
-<div class="alert alert-success">
-<img src="check.png" width="30" height="20"/>	<%= flash[:notice]%>
-</div>
-
-<% elsif flash[:notice2]%>
-<div class="alert alert-danger">
-	<img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
-</div>
-<%end%>
-
-
-<legend>Purchase</legend>
-
-<div id="form" style="padding-left:100px;">
-
-	
-
-	<%= form_tag items_path, :class=>"form-horizontal", method: :get do %>
-  	<div class='input-group.input-group-lg' style="margin-bottom:10px;"> 
-	  	
-
-	  	<%= text_field_tag :query, params[:query], class: "form-control", :placeholder =>"type a search item", id: "item_search" %>
-	  	<%= text_field_tag :quantity, params[:quantity], class: "form-control", :placeholder =>"quantity",  id: "quantity"%>
-	  	<%= submit_tag "Search", class: "btn btn-default"%>
-		
-		<%= link_to "new sale",  items_new_sale_path, class: "btn btn-default",method: :post%>
-		<%if params[:query].present? %>
-	  	
-	  		<%if @items%>
-
-	  			<% @items.each do |item| %>
-	  				<%= link_to 'Add to Cart', items_cart_item_path(items_id: item.id), class: "btn btn-default", method: :post%>
-	  			<%end%>
-	  		<%end%>
-
-
-	 	<% end %>
-
-
-	</div>
-  
-    
-	<% end %>
-
-	
-
-	<!-- 
-	========================================================
-	-->
-	<div class="input-group-btn">
-		<table style="width:500px; float:left; padding-left:0px;">
-			
-
-			<% if @item%>
-				<tr style="background-color:#B1FFD4; height:15px;"><th>Name</th><th>Quantity</th><th>Unit Price</th> <th>Total</th></tr>
-
-				<% @item.each do |item| %>
-
-					<tr style="height:8px;"></tr>
-
-					<tr style="background-color:#CDF5DF;height:10px;">
-						<td><%= item.name%></td>
-						<td><%= item.quantity%></td>
-						<td><%= item.price %></td>
-						<td><%= item.subtotal %></td>		
-					</tr>
-
-				<%end %>
-				  
-			<%end%>
-
-
-			
-		</table>	
-	</div>
-
-	<div id="after_transact">	
-	<h3><%= $total%></h3>	
-
-		
-	</div>
-
-	<div id="transact">	
-		<div id="button">  	
-			<button type="button" class="btn btn-default">
-				<%= button_to "Transact", "https://www.jpesa.com/cp/webpr/?jc=dons&agent_id=iconics&item_name=Donation&amount=500&currency_code=UGX&return=http://localhost/items", method: :post, class: "button_transact"%>
-   			</button>
-    	</div>
-	</div>
-
-
-<!-- Button starts here -->
-<div align="center">
-        <form method="post" style="margin:0px" action="https://payments.yo.co.ug/webexpress/">
-                <input type="image" name="submit" src="mm.png" height="50" style="border-radius:3px;"/>
-                <input type="hidden" name="bid" value="88" />
-                <input type="hidden" name="currency" value="UGX" />
-                <input type="hidden" name="amount" value="100" />
-                <input type="hidden" name="narrative" value="Pay for the service" />
-                <input type="hidden" name="reference" value="Payment" />
-                <input type="hidden" name="provider_reference_text" value="" />
-                <input type="hidden" name="account" value="100181085271" />
-                <input type="hidden" name="return" value="http://enigmatic-mesa-8421.herokuapp.com/items" />
-                <input type="hidden" name="prefilled_payer_email_ad
-dress" value="" />
-                <input type="hidden" name="prefilled_payer_mobile_payment_msisdn" value="" />
-                <input type="hidden" name="prefilled_payer_names" value="" />
-                <input type="hidden" name="abort_payment_url" value="" />
-        </form>  
-</div>
-<!-- Button ends here -->
-
-</div>
-
-
-<div id="back">
-
-</div>
     

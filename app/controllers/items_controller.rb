@@ -13,8 +13,8 @@ class ItemsController < ApplicationController
     $total = CartItem.sum('subtotal')
 
 
-    if params[:query].present?
-       @items = Items.search(params[:query],fields: [{name: :text_start}])
+    if params[:text].present?
+       @items = Items.search(params[:text],fields: [{name: :text_start}])
        #@items = render json: Items.search(params[:query], autocomplete: true, limit: 10).map(&:name)
        #@items = Items.search(params[:query], page: params[:page])
        #render xml: @items

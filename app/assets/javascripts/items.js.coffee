@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-document.getElementById("item_search").style.visibility = "hidden";
+document.getElementById("item_search").style.margin-top =5;
+document.getElementById("new_sale").style.visibility = "hidden";
 
 
 
