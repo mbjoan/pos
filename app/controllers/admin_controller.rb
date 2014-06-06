@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 	
-  #before_filter :confirm_admin
+  before_filter :confirm_admin
 
 	def index
 	end

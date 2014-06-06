@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-#before_filter :login_required, :except=>[:index, :login]
-#before_filter :confirm_admin, :only=>[:new, :view_user, :show]
+before_filter :login_required, :except=>[:index, :login]
+before_filter :confirm_admin, :only=>[:new, :view_user, :show]
 
 autocomplete :users, :username
 
