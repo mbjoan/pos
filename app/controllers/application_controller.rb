@@ -12,14 +12,14 @@ class ApplicationController < ActionController::Base
 		if session[:user]
 			return true			
 		end
-		flash[:notice2]="Please login to continue"
+		flash[:notice1]="Please login to continue"
 		redirect_to users_path
 		return false
 	end
 
   	def confirm_admin
     unless session[:role] && session[:role]=='Admin'
-	  flash[:notice2] ="You do not have the required priviledges to access this page."
+	  flash[:notice1] ="You do not have the required priviledges to access this page."
 	  redirect_to items_path
 	  return false # halts the before_filter
 	else
