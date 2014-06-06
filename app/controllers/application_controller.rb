@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   	def confirm_admin
     unless session[:role] && session[:role]=='Admin'
-	  flash[:notice1] ="You do not have the required priviledges to access this page."
+	  flash[:notice1] ="you do not have the required priviledges to access this page."
 	  redirect_to items_path
 	  return false # halts the before_filter
 	else
