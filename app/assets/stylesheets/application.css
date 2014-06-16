@@ -166,9 +166,10 @@ button
 table
 {
 	border-top: solid 1px;
-	width: 300px;
+	width: 400px;
 	margin-left: 0px;
 	margin-bottom:50px;
+  padding-left: 20px;
 }
 tr
 {

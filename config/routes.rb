@@ -6,12 +6,14 @@ Myapp::Application.routes.draw do
   get "users/new"
   post "users/login"
   post "admin/new"
-  post "admin/help"
+  #post "admin/help"
   get "log_out" => "users#logout", :as => "log_out"
+  get "help" => "admin#help", :as => "help"
   post "users/view_user"
   post "items/view_stock"
   post "items/cart_item"
   post "items/new_sale"
+  #delete 'destroy' => 'items#destroy'
 
   get "items/autocomplete"
 
@@ -27,11 +29,6 @@ Myapp::Application.routes.draw do
       #get :autocomplete # <= add this line
     end
   end
-
-  resources :items do
-    get :autocomplete_brand_name, :on => :collection
-end
-
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

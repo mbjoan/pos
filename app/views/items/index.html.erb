@@ -25,28 +25,25 @@
         top: -2px;
         left: -2px;
 }
-
 </style>
 
 <body onLoad="init();">
   <% if flash[:notice]%>
 <div class="alert alert-success">
-<img src="check.png" width="30" height="20"/> <%= flash[:notice]%>
+<img src="/check.png" width="30" height="20"/> <%= flash[:notice]%>
 </div>
 
 <% elsif flash[:notice2]%>
 <div class="alert alert-danger">
-  <img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
+  <img src="/fail.png" width="30" height="20"/><%= flash[:notice2]%>
 </div>
 
 <% elsif flash[:notice1]%>
 <div class="alert alert-danger">
-  <img src="fail.png" width="30" height="20"/><%= flash[:notice1]%>
+  <img src="/fail.png" width="30" height="20"/><%= flash[:notice1]%>
 </div>
 
 <%end%>
-
-
   <legend>Purchase</legend>
   <div id="form" style="padding-left:100px;">
   <!-- ===========================================================================================-->
@@ -56,14 +53,26 @@
 <input type="text" name="text" autocomplete="off" id="item_search" class="form-control">
 <input type="text" name="quantity" placeholder="quantity" id="quantity" class="form-control">
 <input type="submit" value="Search" name="commit" class="btn btn-default"/>
-<%= link_to "new sale",  items_new_sale_path, class: "btn btn-default",method: :post, id: "new_sale"%>
+<%= link_to "Clear Cart",  items_new_sale_path, class: "btn btn-default",method: :post, id: "new_sale"%>
 
 <%if params[:text].present? %>
-      
+    
         <%if @items%>
 
           <% @items.each do |item| %>
-            <%= link_to 'Add to Cart', items_cart_item_path(items_id: item.id), class: "btn btn-default", method: :post%>
+          <div class="input-group-btn">
+          <table style="width:500px; float:left; padding-left:0px;">
+             <tr style="background-color:#B1FFD4; height:15px;"><th>Name</th><th>Unit Price</th><th>Quantity</th></tr>
+
+             <tr style="height:8px;"></tr>
+
+          <tr style="background-color:#CDF5DF;height:10px;">
+            <td><%= item.name%></td>
+            <td><%= item.price %></td>
+            <td><%= $quantity %></td>
+            <td><%= link_to 'Add to Cart', items_cart_item_path(items_id: item.id), class: "btn btn-default", method: :post%></td>
+          </table>  
+          </div>
           <%end%>
         <%end%>
         <% end%>
@@ -80,6 +89,7 @@
 	<!-- 
 	========================================================
 	-->
+ <legend>Customer Cart</legend>
 	<div class="input-group-btn">
 		<table style="width:500px; float:left; padding-left:0px;">
 			
@@ -107,13 +117,15 @@
 		</table>	
 	</div>
 
-	<div id="after_transact">	
-	<h3><%= $total%></h3>	
 
+  <form>
+<input type="text" name="mm_amount" value=<%= $total%> id="after_transact" style=" font-weight: bold;font-size: 30px;padding-top:20px;"/>
+<% $total = params[:mm_amount] %>
+</form> 
+
+<%= $total%>
 		
-	</div>
-
-  <div style="float:center;padding-top:5px;">Pay with</div>
+	
 
 	<div id="transact">	
 		<div id="button">  	
@@ -121,10 +133,10 @@
 
           <div align="center">
         <form method="post" style="margin:0px" action="https://payments.yo.co.ug/webexpress/">
-                <input type="image" name="submit" src="mm1.PNG" height="50" style="border-radius:3px;"/>
+                <input type="image" name="submit" src="/mm1.PNG" height="50" style="border-radius:3px;"/>
                 <input type="hidden" name="bid" value="88" />
                 <input type="hidden" name="currency" value="UGX" />
-                <input type="hidden" name="amount" value=<%= $total%> />
+                <input type="hidden" name="amount" value=<%= params[:mm_amount] %> />
                 <input type="hidden" name="narrative" value="Pay for the service" />
                 <input type="hidden" name="reference" value="Payment" />
                 <input type="hidden" name="provider_reference_text" value="" />
@@ -136,10 +148,12 @@ dress" value="" />
                 <input type="hidden" name="prefilled_payer_names" value="" />
                 <input type="hidden" name="abort_payment_url" value="" />
         </form>  
+
 </div>
    			</button>
     	</div>
 	</div>
+  <%= params[:amount]%>
 
 
 
@@ -361,8 +375,8 @@ function keyHandler(event)
     {
       for (var i=0; i < words.length; ++i)
         setColor (i, "white", "black");
-      this.style.background = "blue";
-      this.style.color= "white";
+      this.style.background = "#C1FF9D";
+      this.style.color= "black";
      }
      var mouseHandlerOut=function()
      {

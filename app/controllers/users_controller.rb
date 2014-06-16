@@ -3,8 +3,6 @@ class UsersController < ApplicationController
 before_filter :login_required, :except=>[:index, :login]
 before_filter :confirm_admin, :only=>[:new, :view_user, :show]
 
-autocomplete :users, :username
-
   def index
   end
 
@@ -78,7 +76,7 @@ def destroy
   @user=User.find(params[:id])
 
   @user.destroy
-  flash[:notice1] = 'Deleted User '+ @user.username
+  flash[:notice] = 'Deleted User '+ @user.username
   
   redirect_to users_view_user_path
 

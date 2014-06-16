@@ -25,6 +25,7 @@
 			<% for message_error in @user.errors.full_messages %>
 			<%= message_error %>
 	<% end %>
+</div>
 
 <% end %>
 
@@ -32,7 +33,7 @@
 	<%= f.label :username, class: "control-label" %>
 
 	<div class="controls">
-		<%= f.text_field :username%>
+		<%= f.text_field :username %>
 	</div>
 </div>
 
@@ -60,18 +61,25 @@
 <div class="control-group" style="width:220px; margin-left:180px;padding-left:0px; margin-top:2px;">
 	<div class="form-actions" style="padding-left:0px; margin-top:0px;">
 		<%= f.submit "Create User" %>
+
+
 </div>
 </div>
+
+
+
 
 <% end %>
+
 </div>
+
 
 </fieldset>
+</div>
 
-
+<div style="border: solid 1px;background-color: #9CF2B2;border-radius: 3px;width: inherit;height: 30px;padding-top:5px;">
+<%= link_to "Back", admin_index_path %>
 </div>
 
 
-<div id="back">
-<%= link_to "Back", :controller=>"admin", :action=>"index" %>
-</div>
+

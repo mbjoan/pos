@@ -1,24 +1,19 @@
 source 'https://rubygems.org'
 
-gem 'acts_as_shopping_cart', '~> 0.2.1'
-
+#migration to postgress
 gem 'pg'
 
-gem 'rails_autocomplete'
-gem 'rails4-autocomplete', '~> 1.1.0'
+#for conformance to other platforms on deployment
 gem 'rails_12factor'
+
+
 
 #for pagination
 gem 'kaminari'
 
-#autocomplete
-gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 
-gem 'acts-as-taggable-on'
 
-gem 'jquery-ui-rails'
-gem 'gmaps-autocomplete-rails'
 
 #mousetrap for keyboard shortcuts
 gem 'mousetrap-rails'
@@ -29,8 +24,15 @@ gem 'searchkick', '~> 0.6.2'
 gem 'elasticsearch'
 
 #rspec
-gem 'rspec-rails', '~> 3.0.0.beta'
+#gem 'rspec-rails', '~> 3.0.0.beta'
 
+#testing
+  group :test, :development do
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require=>false
+  gem 'capybara'
+  gem 'database_cleaner'
+end
 #brypt
 gem 'bcrypt', :require => 'bcrypt' 
 
