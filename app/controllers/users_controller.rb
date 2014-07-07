@@ -63,8 +63,11 @@ before_filter :confirm_admin, :only=>[:new, :view_user, :show]
 
   end
 
+
 def logout
       session[:user] = nil
+      session[:role] = nil
+      session[:user_name]= nil
       #redirect_to home_url, :notice => "Logged out"
       #flash[:notice] = 'Logged out'
       flash[:notice] = 'Logged out successfully'

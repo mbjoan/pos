@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
 
   #before_filter :login_required
   #before_filter :confirm_admin, :except=>[:index,:autocomplete]
+  protect_from_forgery
 
 
 	def index
@@ -125,6 +126,8 @@ class ItemsController < ApplicationController
     flash[:notice1] = "Failed to delete Item"
   end
 end
+
+
 
 
 end

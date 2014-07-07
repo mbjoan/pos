@@ -115,16 +115,7 @@
 
 			
 		</table>	
-	</div>
-
-
-  <form>
-<input type="text" name="mm_amount" value=<%= $total%> id="after_transact" style=" font-weight: bold;font-size: 30px;padding-top:20px;"/>
-<% $total = params[:mm_amount] %>
-</form> 
-
-<%= $total%>
-		
+	</div>		
 	
 
 	<div id="transact">	
@@ -136,12 +127,12 @@
                 <input type="image" name="submit" src="/mm1.PNG" height="50" style="border-radius:3px;"/>
                 <input type="hidden" name="bid" value="88" />
                 <input type="hidden" name="currency" value="UGX" />
-                <input type="hidden" name="amount" value=<%= params[:mm_amount] %> />
+                <input type="hidden" name="amount" value=<%= $total%> />
                 <input type="hidden" name="narrative" value="Pay for the service" />
                 <input type="hidden" name="reference" value="Payment" />
                 <input type="hidden" name="provider_reference_text" value="" />
                 <input type="hidden" name="account" value="100181085271" />
-                <input type="hidden" name="return" value="http://enigmatic-mesa-8421.herokuapp.com/items" />
+                <input type="hidden" name="return" value="http://point-of-sale-iconics.herokuapp.com/items" />
                 <input type="hidden" name="prefilled_payer_email_ad
 dress" value="" />
                 <input type="hidden" name="prefilled_payer_mobile_payment_msisdn" value="" />
@@ -150,6 +141,10 @@ dress" value="" />
         </form>  
 
 </div>
+
+
+
+
    			</button>
     	</div>
 	</div>
