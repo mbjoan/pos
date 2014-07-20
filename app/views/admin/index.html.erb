@@ -1,4 +1,4 @@
-
+<!-- display welcome message for administrator-->
 <% if flash[:notice]%>
 <div class="alert alert-success">
 	<img src="/check.png" width="30" height="20"/><%= flash[:notice]%>
@@ -9,30 +9,37 @@
 <div id="form">
 <div id="admin">
 
-
+    <!-- button for creating a new user-->
    <div id="button">  
         <button type="button" class="btn btn-default">
             <%= button_to "Add New User", new_admin_path, class: "button", method: :get%>
         </button>
     </div>
-
+    <!-- button for cviewing system users-->
 	<div id="button">
     	<button type="button" class="btn btn-default">
     		<%= button_to "View Registered users", users_view_user_path, class: "button" %>
     	</button>	
  	</div>
-
+    <!-- button for adding new items to store-->
  	<div id="button">
     	<button type="button" class="btn btn-default">
     		<%= button_to "Add New stock", new_item_path, class: "button", method: :get%>
     	</button>
   	</div>
-
+    <!-- button for viewing available stock-->
   	<div id="button">
     	<button type="button" class="btn btn-default">
     		<%= button_to "View Available Stock", items_view_stock_path, class: "button"%>
     	</button>
 	</div>
+    <!-- button for reading the transaction logs-->
+    <div id="button">
+        <button type="button" class="btn btn-default">
+            <%= button_to "View Transaction Detils", admin_read_log_path, class: "button"%>
+        </button>
+    </div>
+
 
 
 </div>

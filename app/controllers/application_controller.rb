@@ -1,15 +1,12 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-
 
   protect_from_forgery with: :exception
 
   helper_method :current_user
 
-
+  #prohibiting access through url for unauthorized users
 	def login_required
-		if session[:user]
+		if session[:userid]
 			return true			
 		end
 		flash[:notice1]="Please login to continue"
@@ -17,14 +14,15 @@ class ApplicationController < ActionController::Base
 		return false
 	end
 
-  	def confirm_admin
+  #checking if a user is an administrator
+  def confirm_admin
     unless session[:role] && session[:role]=='Admin'
-	  flash[:notice1] ="you do not have the required priviledges to access this page."
-	  redirect_to items_path
-	  return false # halts the before_filter
-	else
-	  return true
-	end
+  	  flash[:notice1] ="you do not have the required priviledges to access this page."
+  	  redirect_to items_path
+  	  return false # deny access
+	  else
+	    return true
+	  end
   end
 
 #cart method
@@ -34,6 +32,7 @@ class ApplicationController < ActionController::Base
     if session[:cart_id]
       @cart = Cart.find(session[:cart_id])
     else
+      #create new cart
       @cart = Cart.create
       session[:cart_id] = @cart.id
       @cart

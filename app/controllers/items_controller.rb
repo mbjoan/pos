@@ -127,6 +127,135 @@ class ItemsController < ApplicationController
   end
 end
 
+def transact
+
+url = URI.parse('https://41.190.131.222/pegpaytelecomsapi/PegPayTelecomsApi.asmx?WSDL')
+       
+    post_xml ='<?xml version="1.0" encoding="utf-8"?>
+    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <PostTransaction xmlns="http://PegPayTelecomsApi/">
+          <trans>
+            <DigitalSignature>'+ "#{digital_signature_new}" +'</DigitalSignature>
+            <FromTelecom>'+ "#{params[:customer_tarrif]}" +'</FromTelecom>
+            <ToTelecom>'+ "#{params[:system_tarrif]}" +'</ToTelecom>
+            <PaymentCode>1</PaymentCode>
+            <VendorCode>MABIRA</VendorCode>
+            <Password>81W30DI846</Password>
+            <PaymentDate>'+ Date.today.strftime("%m/%d/%Y")  +'</PaymentDate>
+            <Telecom></Telecom>
+            <CustomerRef>'+"#{params[:customer_number]}"+'</CustomerRef>
+            <CustomerName>'+"iconics"+'</CustomerName>
+            <TranAmount>'+"#{$total}"+'</TranAmount>
+            <TranCharge>0</TranCharge>
+            <VendorTranId>1</VendorTranId>
+            <ToAccount></ToAccount>
+            <FromAccount>'+"#{params[:customer_number]}"+'</FromAccount>
+            <TranType>PULL</TranType>
+          </trans>
+        </PostTransaction>
+      </soap:Body>
+    </soap:Envelope>'
+
+          peg_pay_status_code = make_http_request(url, post_xml)
+            puts "status code============================================"           
+              puts peg_pay_status_code
+            puts "status code============================================"
+  #  ******* end of sending request to yo! payments server ******************
+           message=getTransactionStatus(peg_pay_status_code )
+           message
+
+           #=============================== error=============================
+           flash[:notice1] = 'Thank you for your order.'
+           redirect_to items_path
+=begin
+      respond_to do |format|
+        #if peg_pay_status_code == 0
+          if @order.save
+            Cart.destroy(session[:cart_id])
+            session[:cart_id] = nil
+            Notifier.order_received(@order).deliver
+            flash[:notice] = 'Thank you for your order.' 
+            format.html { redirect_to(:controller=>'main', :action=>'index') }
+            format.json { render json: @order, status: :created, location: @order }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @order.errors, status: :unprocessable_entity }
+          end
+        #else
+        #  flash[:notice]= message
+
+        #  format.html { render action: "new" }
+        #  format.json { render json: @order.errors, status: :unprocessable_entity }
+       # end
+    end
+=end
+  end
+
+
+  #=============================== error=============================
+
+  def make_http_request(uri, post_xml)
+    require 'net/http'
+    require 'open-uri'
+
+    peg_pay_status_code = ""
+    conn = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(uri.path)
+       if uri.scheme == 'https'
+        require 'net/https'
+        conn.use_ssl = true
+              conn.verify_mode = OpenSSL::SSL::VERIFY_NONE   # needed for windows environment
+      end
+    request.body=post_xml
+    request.content_type = 'text/xml'
+    response = conn.request(request)
+    
+    peg_pay_status_code = response.read_body
+    peg_pay_status_code
+
+  end
+  def getTransactionStatus(statusCode)
+    returnMessage=""
+    if statusCode=="0"
+            returnMessage="SUCCESS"
+    else
+      returnMessage= statusCode
+    end
+        
+    return returnMessage
+  end
+
+  def digital_signature_new
+    require 'openssl'
+    require 'base64'
+    require 'digest/sha1'
+
+    @date = Date.today.strftime("%m/%d/%Y")
+    #text_to_sign = "#{params[:customer_number]}" + "iconics" + "#{@order.pay_type}" + "#{@order.pay_type}" + "1" + "MABIRA" + "81W30DI846" + "#{@date}" + "PULL" + "1" + "#{$total}" + "#{params[:customer_number]}" + ""
+    text_to_sign = "#{params[:customer_number]}" + "iconics" + "#{params[:customer_tarrif]}" + "#{params[:system_tarrif]}" + "1" + "Mabira" + "81W30DI846" + "#{@date}" + "PULL" + "1" + "#{$total}" + "#{params[:system_number]}"+ ""
+    #text_to_sign = "0775084688" + "Becka" + "MTN" + "MTN" + "1" + "Mabira" + "81W30DI846" + "12345678" + "PULL" + "1" + "2000000" + "0775084688" + " "
+    password = 'Tingate710'
+
+    cipher = OpenSSL::Cipher.new 'aes-256-cbc'
+    cipher.encrypt
+    cipher.key = cipher.random_key
+    cipher.iv = cipher.random_iv
+
+    encrypted = cipher.update(text_to_sign) + cipher.final
+    #encrypted << cipher.final
+    hashed_text = Digest::SHA1.hexdigest(encrypted)
+    private_key = OpenSSL::PKey::RSA.new(File.read('Mabira.key'), password)
+    ciphertext = private_key.private_encrypt(hashed_text)
+    ciphertext.encoding
+    signed_text = Base64.encode64(ciphertext).gsub("\n", '')
+    puts signed_text
+    signed_text
+
+  end
+
+
+
 
 
 

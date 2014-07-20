@@ -1,49 +1,47 @@
+<!-- success message -->
 <% if flash[:notice]%>
-<div class="alert alert-success">
-  <img src="check.png" width="30" height="20"/><%= flash[:notice]%>
-</div>
-
+  <div class="alert alert-success">
+    <img src="check.png" width="30" height="20"/><%= flash[:notice]%>
+  </div>
+<!-- error message -->
 <% elsif flash[:notice1]%>
-<div class="alert alert-danger">
-  <img src="fail.png" width="30" height="20"/><%= flash[:notice1]%>
-</div>
+  <div class="alert alert-danger">
+    <img src="fail.png" width="30" height="20"/><%= flash[:notice1]%>
+  </div>
 <%end%>
 
 <legend>Log In</legend>
 
 <div id="form">
-<fieldset>
+  <fieldset>
+    <div class="span6 well">
+      <!-- login form -->
+      <%= form_tag users_login_path, :class=>"form-horizontal" do%>
 
-<div class="span6 well">
+      	<div class="control-group">
+          	<%= label_tag :username, nil, class: "control-label" %>
+          	  <div class="controls">
+          		  <%= text_field_tag :username, params[:username] %>
+      		    </div>
+      	</div>
 
-<%= form_tag users_login_path, :class=>"form-horizontal" do%>
+      	<div class="control-group">
+          	<%= label_tag :password, nil, class: "control-label" %>
+          	  <div class="controls">
+          		  <%= password_field_tag :password %>
+          	  </div>
+      	</div>
 
-	<div class="control-group">
-    	<%= label_tag :username, nil, class: "control-label" %>
-    	<div class="controls">
-    		<%= text_field_tag :username, params[:username] %>
-		</div>
-	</div>
-
-	<div class="control-group">
-    	<%= label_tag :password, nil, class: "control-label" %>
-    	<div class="controls">
-    		<%= password_field_tag :password %>
-    	</div>
-	</div>
-
-  <div class="control-group" style="width:220px; margin-left:180px;padding-left:0px;">
-	<div class="form-actions" style="padding-left:0px;">
-
-  		<%= submit_tag "Log in", class: "submit" %>
-
-  	</div>
-	</div>
-<% end %>
-
+        <div class="control-group" style="width:220px; margin-left:180px;padding-left:0px;">
+      	   <div class="form-actions" style="padding-left:0px;">
+        		  <%= submit_tag "Log in", class: "submit" %>
+        	 </div>
+      	</div>
+      <% end %>
+    </div>
+  </fieldset>
 </div>
-</fieldset>
-</div>
+<!-- for the back link-->
 <div id="back">
 
 </div>

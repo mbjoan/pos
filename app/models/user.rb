@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
+  #validating the form for creating new user
   validates :username, :presence => true, :uniqueness => true, :length => { :in => 3..20 }
-  #validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
   validates :password, :confirmation => true #password_confirmation attr
   validates_length_of :password, :in => 6..20, :on => :create
   validates :role, :presence => true
  
-
+  #call method before appropriate action
   before_save :encrypt_password
   after_save :clear_fields
 
@@ -24,12 +24,12 @@ class User < ActiveRecord::Base
     self.username=nil
     self.role=nil
   end
-
+  #authenticating a system user
   def self.authenticate(username, password)
-    user=find_by_username(username)
+    user=find_by_username(username)  #find the user
+      #confirm the users password
       if user && user.encrypted_password == BCrypt::Engine.hash_secret(password, user.salt)
-      user
-      
+          user      
       else
        nil
       end

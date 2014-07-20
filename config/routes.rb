@@ -14,6 +14,7 @@ Myapp::Application.routes.draw do
   post "items/cart_item"
   post "items/new_sale"
   post "items/transact"
+  post "admin/read_log"
   #delete 'destroy' => 'items#destroy'
 
   get "items/autocomplete"

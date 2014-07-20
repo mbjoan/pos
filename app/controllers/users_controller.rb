@@ -18,43 +18,38 @@ before_filter :confirm_admin, :only=>[:new, :view_user, :show]
     @users=User.all
   end
 
-
+  #create new user
   def create
     @user = User.new(params[:user].permit(:username, :role, :password, :password_confirmation))
-    if @user.save
+    if @user.save #save the user
        flash[:notice] = "New user created"
-       #flash[:color] = "invalid"
-       #redirect_to root_url, :notice => "signed up"
-    else
-      
+    else     
        flash[:notice] = "Form is invalid-empty fields"
        redirect_to new_admin_path
-       #flash[:color] = "valid"
     end
-       #render "new"
-       #redirect_to admin_index_path
   end
 
-
+  #login method
   def login
     if request.post?
+      #authenticate user
       user = User.authenticate(params[:username], params[:password])
         if user
-          session[:user] = user.id
+          #set sessions objects for the user
+          session[:userid] = user.id
           session[:role] = user.role
           session[:user_name]= user.username
           flash[:notice] = "WELCOME "+session[:user_name]
-          #redirect_to new_user_path
 
-            if session[:role]=="Admin"
-              redirect_to admin_index_path
-              return true
-            elsif session[:role]=="Cashier"
-              redirect_to items_path
-              return true
-            end
-
-
+          if session[:role]=="Admin"
+            #redirect to admin page
+            redirect_to admin_index_path
+            return true
+          elsif session[:role]=="Cashier"
+            #redirect to cashier page
+            redirect_to items_path
+            return true
+          end
         else
           flash[:notice1] = "Wrong Username or password"
           redirect_to :controller=>'users'
@@ -63,18 +58,16 @@ before_filter :confirm_admin, :only=>[:new, :view_user, :show]
 
   end
 
-
 def logout
-      session[:user] = nil
-      session[:role] = nil
-      session[:user_name]= nil
-      #redirect_to home_url, :notice => "Logged out"
-      #flash[:notice] = 'Logged out'
-      flash[:notice] = 'Logged out successfully'
-      redirect_to users_path
-
+  #destroy session objects
+  session[:userid] = nil
+  session[:role] = nil
+  session[:user_name]= nil
+  flash[:notice] = 'Logged out successfully'
+  redirect_to users_path
 end
 
+#delete user
 def destroy
   @user=User.find(params[:id])
 
