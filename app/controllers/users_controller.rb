@@ -20,13 +20,7 @@ before_filter :confirm_admin, :only=>[:new, :view_user, :show]
 
   #create new user
   def create
-    @user = User.new(params[:user].permit(:username, :role, :password, :password_confirmation))
-    if @user.save #save the user
-       flash[:notice] = "New user created"
-    else     
-       flash[:notice] = "Form is invalid-empty fields"
-       redirect_to new_admin_path
-    end
+    
   end
 
   #login method

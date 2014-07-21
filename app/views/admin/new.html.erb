@@ -1,19 +1,19 @@
 
 <% if flash[:notice1]%>
 <div class="alert alert-success">
-	<img src="check.png" width="30" height="20"/><%= flash[:notice1]%>
+	<img src="/check.png" width="30" height="20"/><%= flash[:notice1]%>
 </div>
 
 <% elsif flash[:notice2]%>
 <div class="alert alert-danger">
-	<img src="fail.png" width="30" height="20"/><%= flash[:notice2]%>
+	<img src="/fail.png" width="30" height="20"/><%= flash[:notice2]%>
 </div>
 <%end%>
 
 
 <legend> Add System User </legend>
 
-<div id="form">
+<div id="container">
 <fieldset>
 
 
@@ -22,7 +22,7 @@
 <%= form_for(:user, :url => {:controller => 'admin', :action => 'create'}, :html=>{ :class=>"form-horizontal"}) do |f| %>
 	<% if @user.errors.any? %>
 		<div class="alert alert-danger">
-			<% for message_error in @user.errors.full_messages %>
+			<%@user.errors.full_messages.each do |message_error| %>
 			<%= message_error %>
 	<% end %>
 </div>

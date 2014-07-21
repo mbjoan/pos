@@ -45,14 +45,14 @@
 
 <%end%>
   <legend>Purchase</legend>
-  <div id="form" style="padding-left:100px;">
+  <div id="container" style="padding-left:100px;">
   <!-- ===========================================================================================-->
 <form name="test" id="test" action="/items/">
   <div class='input-group.input-group-lg' style="margin-bottom:10px;"> 
 
 <input type="text" name="text" autocomplete="off" id="item_search" class="form-control">
 <input type="text" name="quantity" placeholder="quantity" id="quantity" class="form-control">
-<input type="submit" value="Search" name="commit" class="btn btn-default"/>
+<input type="submit" value="Add To Cart" name="commit" class="btn btn-default"/>
 <%= link_to "Clear Cart",  items_new_sale_path, class: "btn btn-default",method: :post, id: "new_sale"%>
 
 <%if params[:text].present? %>
@@ -112,8 +112,8 @@
 				  
 			<%end%>
 
-
-			
+      
+		<div style="float:right;border:solid green; font-weight: bold;font-size: 30px;padding-top:20px; width:150px; height:30px; margin-left:10px;"><%= $total%> </div>
 		</table>	
 	</div>		
 	
@@ -138,55 +138,16 @@ dress" value="" />
                 <input type="hidden" name="prefilled_payer_mobile_payment_msisdn" value="" />
                 <input type="hidden" name="prefilled_payer_names" value="" />
                 <input type="hidden" name="abort_payment_url" value="" />
+
+
         </form>  
 
 </div>
 
-
-
-
    			</button>
     	</div>
 	</div>
-
-  <legend>Transact</legend>
-  <form action="/items/transact" method="post">
-    <table style="margin-bottom:20px;"> 
-        <input type="text" name="mm_amount" value=<%= $total%> id="after_transact" style=" font-weight: bold;font-size: 30px;padding-top:20px; width:150px; height:30px"/>
-
-        <tr>
-            <td>Customer</td>
-            <td><input type="text" name="customer_number" value="+256" style=" font-weight: bold;font-size:16px;padding-top:10px;margin-top:2px;margin-bottom:2px;height:15px;"/></td>
-
-            <td>
-              <select name="customer_tarrif" style="margin-top:8px;height:30px; width:150px;">
-                <option selected>MTN</option>
-                <option>Airtel</option>
-                <option>UTL</option>
-                <option>Orange</option>
-              </select>
-            </td>
-        </tr>
-
-        <tr>
-          <td>System</td>
-            <td><input type="text" name="system_number" value="+256" style=" font-weight: bold;font-size: 16px;padding-top:10px;margin-top:2px;margin-bottom:2px"/></td>
-
-            <td>
-              <select name="system_tarrif" style="margin-top:8px;height:30px; width:150px;">
-                <option>MTN</option>
-                <option>Airtel</option>
-                <option>UTL</option>
-                <option>Orange</option>
-              </select>
-            </td>
-
-        </tr>
-
-    </table>
-    <input type="submit" name="commit" value="Pay" class="btn btn-default" style="height:35px;font-weight: bold;font-size: 20px;color:green;margin-left:100px;">
-
-</form> 
+ 
   <%= params[:amount]%>
 
 

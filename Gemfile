@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+#generate pdfs
+gem 'prawn'
+
 #migration to postgress
 gem 'pg'
 

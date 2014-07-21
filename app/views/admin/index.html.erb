@@ -6,13 +6,13 @@
 
 <%end%>
 <legend> Administrator Options </legend>
-<div id="form">
+<div id="container">
 <div id="admin">
 
     <!-- button for creating a new user-->
    <div id="button">  
         <button type="button" class="btn btn-default">
-            <%= button_to "Add New User", new_admin_path, class: "button", method: :get%>
+            <%= button_to "Add New User", {:controller=>"admin",:action=>"new"}, class: "button", method: :get%>
         </button>
     </div>
     <!-- button for cviewing system users-->
@@ -36,7 +36,7 @@
     <!-- button for reading the transaction logs-->
     <div id="button">
         <button type="button" class="btn btn-default">
-            <%= button_to "View Transaction Detils", admin_read_log_path, class: "button"%>
+            <%= button_to "Download Transaction log", {:controller=>"admin",:action=>"read_log"}, class: "button"%>
         </button>
     </div>
 

@@ -1,18 +1,18 @@
 <!-- success message -->
 <% if flash[:notice]%>
   <div class="alert alert-success">
-    <img src="check.png" width="30" height="20"/><%= flash[:notice]%>
+    <img src="/check.png" width="30" height="20"/><%= flash[:notice]%>
   </div>
 <!-- error message -->
 <% elsif flash[:notice1]%>
   <div class="alert alert-danger">
-    <img src="fail.png" width="30" height="20"/><%= flash[:notice1]%>
+    <img src="/fail.png" width="30" height="20"/><%= flash[:notice1]%>
   </div>
 <%end%>
 
 <legend>Log In</legend>
 
-<div id="form">
+<div id="container">
   <fieldset>
     <div class="span6 well">
       <!-- login form -->

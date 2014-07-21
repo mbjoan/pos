@@ -38,13 +38,4 @@ class ApplicationController < ActionController::Base
       @cart
     end
   end
- 	 
-  #logger
-
-  def at_start
-    @itemlist = Items.find(:all,:select => 'name')
-  end
-  
-
-
 end
