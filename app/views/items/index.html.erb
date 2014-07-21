@@ -138,7 +138,11 @@ dress" value="" />
                 <input type="hidden" name="prefilled_payer_mobile_payment_msisdn" value="" />
                 <input type="hidden" name="prefilled_payer_names" value="" />
                 <input type="hidden" name="abort_payment_url" value="" />
-
+<%
+CartItem.delete_all
+    Cart.delete_all
+    session[:cart_id]=nil
+%>
 
         </form>  
 
