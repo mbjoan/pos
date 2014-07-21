@@ -8,7 +8,6 @@ class ItemsController < ApplicationController
 	def index
     @others = Items.all
     @index = Items.new
-    #@item=CartItem.where(cart_id: initialize_cart).to_a
     @item=CartItem.all
 
     $total = CartItem.sum('subtotal')
