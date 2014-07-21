@@ -7,7 +7,7 @@ class Items < ActiveRecord::Base
 	searchkick text_start: [:name]
 	#searchkick
 
-	validates :name, :presence => true, :uniqueness => true
+	validates :name, :presence => true
 	validates :price, :presence => true
 	validates :quantity, :presence => true
 
