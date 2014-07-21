@@ -18,10 +18,10 @@ class AdminController < ApplicationController
 
   #read transaction log file
   def read_log
-    #send_data 'log/transaction.log', :type => 'text/log', :disposition => 'inline'
+    send_data 'log/transaction.log', :type => 'text/log', :disposition => 'inline'
 
     File.open('log/transaction.log', 'r') do |f|
-      send_data "lambert", :type => 'text/log', :disposition => 'inline', :filename => "transaction.log"
+     # send_data "lambert", :type => 'text/log', :disposition => 'inline', :filename => "transaction.log"
     end
 
 
