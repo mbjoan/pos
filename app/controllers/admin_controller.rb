@@ -20,8 +20,11 @@ class AdminController < ApplicationController
   def read_log
     #send_data 'log/transaction.log', :type => 'text/log', :disposition => 'inline'
 
-    send_data('Hello, pretty world :(', 
-              :type => 'text/plain', :disposition => 'attachment', :filename => 'log/transaction.log')
+    File.open('log/transaction.log', 'r') do |f|
+      send_data f.read, :type => 'text/log', :disposition => 'inline' #:filename => "10.xml"
+    end
+
+    #send_data('log/transaction.log',:type => 'text/plain', :disposition => 'attachment', :filename => 'transaction.log')
 
   end
 
