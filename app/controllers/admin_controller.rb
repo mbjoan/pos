@@ -18,7 +18,7 @@ class AdminController < ApplicationController
 
   #read transaction log file
   def read_log
-    send_file 'log/transaction.log', :type => 'text/log', :disposition => 'inline'
+    send_data 'log/transaction.log', :type => 'text/log', :disposition => 'inline'
 
   end
 
